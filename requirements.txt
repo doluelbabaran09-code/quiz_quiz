@@ -1,2 +1,2 @@
-streamLit
-request
+streamlit
+requests
