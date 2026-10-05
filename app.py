@@ -1,57 +1,90 @@
 import streamlit as st
+import requests
 
-# Custom styling for mobile
-st.set_page_config(page_title="How Well Do You Know Me?", page_icon="💖", layout="centered")
+# Page configuration
+st.set_page_config(page_title="About Me Form", page_icon="📝", layout="centered")
 
-st.title(" How Well Do You Know Me?")
-st.subheader("Time to return the favor! Let's see how many you get right. ")
+st.title("📝 Get to Know Me Quiz")
+st.write("Fill out your details and see how well you know me! 😉")
 
-# Track the score
+# --- 1. YOUR EMAIL HERE ---
+YOUR_EMAIL = "dolueulbabaran09@gmail.com"
+
+# --- SECTION 1: RESPONDENT DETAILS ---
+st.subheader("📋 Your Details")
+
+email = st.text_input("Email address *", placeholder="example@email.com")
+first_name = st.text_input("First Name *")
+year_level = st.selectbox("Year Level *", ["1st Year", "2nd Year", "3rd Year", "4th Year", "Other"])
+course = st.text_input("Course / Major *", placeholder="e.g. BS Computer Engineering")
+
+st.divider()
+
+# --- SECTION 2: WRITTEN / PERSONAL QUESTIONS ---
+st.subheader("💭 Personal Questions")
+
+birth_date = st.text_input("1. When is my birth date?", placeholder="e.g. October 15")
+hometown = st.text_input("2. Where am I originally from?", placeholder="City / Province")
+fav_hobby = st.text_input("3. What's my favorite hobby or pastime?")
+
+st.divider()
+
+# --- SECTION 3: MULTIPLE CHOICE QUIZ ---
+st.subheader("🎯 Multiple Choice Questions")
+
 score = 0
-total_questions = 4
+total_mc_questions = 2
 
-# Question 1
 q1 = st.radio(
-    "1. What is my ultimate comfort food?",
+    "4. What is my ultimate comfort food?",
     ["Pizza", "Ramen", "Tacos", "Ice Cream"],
     index=None
 )
-if q1 == "Ramen":  # <-- Change "Ramen" to your actual answer
+if q1 == "Ramen":  # <-- Change to your actual answer
     score += 1
 
-# Question 2
 q2 = st.radio(
-    "2. If I could travel anywhere tomorrow, where are we going?",
+    "5. If I could travel anywhere tomorrow, where would we go?",
     ["Japan", "Italy", "Iceland", "Greece"],
     index=None
 )
-if q2 == "Japan":  # <-- Change to your answer
+if q2 == "Japan":  # <-- Change to your actual answer
     score += 1
 
-# Question 3
-q3 = st.radio(
-    "3. What's my biggest pet peeve?",
-    ["People walking slow", "Chewing loudly", "Being late", "Unread notifications"],
-    index=None
-)
-if q3 == "Chewing loudly":  # <-- Change to your answer
-    score += 1
+st.divider()
 
-# Question 4
-q4 = st.text_input("4. Bonus Question: What's one thing that always makes me smile?")
-
-# Submit Button
+# --- SUBMIT BUTTON & EMAIL LOGIC ---
 if st.button("Submit Answers ✨"):
-    st.divider()
-    st.header(f"Your Score: {score}/{total_questions}!")
-    
-    if score == total_questions:
-        st.balloons()
-        st.success("Perfect score! You really know me well. Coffee on me next time? ☕")
-    elif score >= 2:
-        st.info("Not bad at all! You passed with flying colors. ")
+    # Check if required fields are filled out
+    if not email or not first_name:
+        st.error("Please fill in your Email and First Name before submitting!")
     else:
-        st.warning("Uh oh! Looks like we need to hangout more so you can study up. ")
+        # Correct FormSubmit URL structure
+        form_url = f"https://formsubmit.co/{YOUR_EMAIL}"
         
-    if q4:
-        st.write(f"*Your answer to the bonus question:* \"{q4}\" — *(Saved!)*")
+        payload = {
+            "--- RESPONDENT ---": "----------------",
+            "Email": email,
+            "First Name": first_name,
+            "Year Level": year_level,
+            "Course": course,
+            "--- WRITTEN ANSWERS ---": "----------------",
+            "Birth Date Answer": birth_date,
+            "Hometown Answer": hometown,
+            "Favorite Hobby Answer": fav_hobby,
+            "--- QUIZ RESULTS ---": "----------------",
+            "Q4 Comfort Food": q1,
+            "Q5 Travel Spot": q2,
+            "Quiz Score": f"{score}/{total_mc_questions}"
+        }
+        
+        # Send email silently in the background
+        try:
+            requests.post(form_url, data=payload)
+        except Exception:
+            pass
+
+        # Show her the confirmation message
+        st.balloons()
+        st.success("Response recorded! Thanks for filling this out! 🎉")
+        st.info(f"Quiz Score: {score}/{total_mc_questions}")
