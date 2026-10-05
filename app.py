@@ -164,7 +164,7 @@ if st.button("Submit Answers ✨"):
     if not email or not first_name:
         st.error("Please fill in your Email and First Name before submitting!")
     else:
-        form_url = "https://formspree.io/f/mqpekvqk"
+        form_url = "https://formspree.io/f/xkjondln"
         
         payload = {
             "--- RESPONDENT DETAILS ---": "----------------",
