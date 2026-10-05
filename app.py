@@ -169,13 +169,13 @@ st.divider()
 # --- SECTION 4: QUESTION FOR HER ---
 st.subheader("🌸 Question Ko Sa'yo")
 
-st.write("**Kung mag-first move ako ng kiss, papayag ka ba?**")
+st.write("**Kung mag-first move ako ng kiss, papalag ka ba?**")
 
 st.image("lord_meme.jpg", use_container_width=True)
 
 kiss_permission = st.radio(
     "Sagot mo:",
-    ["Yes", "No way! 😜"],
+    ["Yes!", "No!"],
     index=None
 )
 
@@ -192,7 +192,24 @@ if st.button("Submit Answers ✨"):
         headers = {
             "Accept": "application/json"
         }
-        
+
+        giving_list = []
+        if g_words: giving_list.append("Words of Affirmation")
+        if g_acts: giving_list.append("Acts of Service")
+        if g_gifts: giving_list.append("Receiving Gifts")
+        if g_time: giving_list.append("Quality Time")
+        if g_touch: giving_list.append("Physical Touch")
+        giving_str = ", ".join(giving_list) if giving_list else "None selected"
+
+        # Pagsasamahin ang mga na-check para sa Receiving
+        receiving_list = []
+        if r_words: receiving_list.append("Words of Affirmation")
+        if r_acts: receiving_list.append("Acts of Service")
+        if r_gifts: receiving_list.append("Receiving Gifts")
+        if r_time: receiving_list.append("Quality Time")
+        if r_touch: receiving_list.append("Physical Touch")
+        receiving_str = ", ".join(receiving_list) if receiving_list else "None selected"
+
         payload = {
             "Email": email,
             "First Name": first_name,
@@ -205,10 +222,13 @@ if st.button("Submit Answers ✨"):
             "Comfort Food Choice": q4,
             "What I Want Most": q5,
             "Games Selected": games_choice,
+            "Giving Love Language": giving_str,
+            "Receiving Love Language": receiving_str,       
             "Crush Choice": crush_choice,
             "Sino Pinakapogi Choice": pogi_choice,
             "First Move Kiss Permission": kiss_permission,
-            "Quiz Score": f"{score}/{total_mc_questions}"
+            "Quiz Score": f"{score}/{total_mc_questions}",
+            
         }
         
         try:
