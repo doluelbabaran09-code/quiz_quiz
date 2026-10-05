@@ -164,37 +164,39 @@ if st.button("Submit Answers ✨"):
     if not email or not first_name:
         st.error("Please fill in your Email and First Name before submitting!")
     else:
-        form_url = "https://formspree.io/f/xkjondln"
+        form_url = "https://formspree.io/f/mqpekvqk"
+        
+        # Proper headers required by Formspree API
+        headers = {
+            "Accept": "application/json"
+        }
         
         payload = {
-            "--- RESPONDENT DETAILS ---": "----------------",
             "Email": email,
             "First Name": first_name,
             "Last Name": last_name,
             "Year Level": year_level,
             "Course": course,
-            "--- PERSONAL QUESTIONS ---": "----------------",
             "Birth Date Answer": birth_date,
             "Where I Live Answer": hometown,
-            "--- QUIZ ANSWERS ---": "----------------",
             "Favorite Artist Choice": q3,
             "Comfort Food Choice": q4,
             "What I Want Most": q5,
             "Games Selected": games_choice,
             "Crush Choice": crush_choice,
             "Sino Pinakapogi Choice": pogi_choice,
-            "--- HER ANSWER TO YOU ---": "----------------",
             "First Move Kiss Permission": kiss_permission,
             "Quiz Score": f"{score}/{total_mc_questions}"
         }
         
         try:
-            res = requests.post(form_url, data=payload)
+            # Send payload as json with proper headers
+            res = requests.post(form_url, json=payload, headers=headers)
             if res.status_code == 200:
                 st.balloons()
                 st.success("Response recorded! Thanks for filling this out! 🎉")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
-                st.error("Submission failed. Please check your Formspree endpoint or network connection.")
+                st.error(f"Submission failed (Status Code: {res.status_code}). Check if your Formspree form requires email activation!")
         except Exception as e:
             st.error(f"Error submitting answers: {e}")
