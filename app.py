@@ -8,7 +8,7 @@ st.title("📝 Get to Know Me Quiz")
 st.write("Fill out your details and see how well you know me! 😉")
 
 # --- HEADER MEME ---
-st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z2ejR3eGN4a2ptcm9ueG9oOTJmMXkxeWtsNnZ2eDZ4cGxzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlHFRbmaZtBRhXG/giphy.gif", use_container_width=True)
+st.image("welcome.jpg", use_container_width=True)
 
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
@@ -32,10 +32,7 @@ st.divider()
 st.subheader("🎯 Quiz Time")
 
 score = 0
-total_mc_questions = 4
-
-# Meme before Q3
-st.image("https://i.imgflip.com/1ur9b0.jpg", caption="Pumili ka nang mabuti...", width=300)
+total_mc_questions = 5
 
 # Question 3: Favorite Artist
 q3 = st.radio(
@@ -43,8 +40,7 @@ q3 = st.radio(
     ["Malcolm Todd", "Arthur Nery", "Hev Abi"],
     index=None
 )
-# Change "Arthur Nery" to your actual correct answer if needed:
-if q3 == "Arthur Nery":  
+if q3 == "Arthur Nery":  # <-- Adjust to your actual answer if needed
     score += 1
 
 st.divider()
@@ -55,8 +51,7 @@ q4 = st.radio(
     ["Chicken", "Ice cream", "Fries"],
     index=None
 )
-# Change "Chicken" to your actual correct answer if needed:
-if q4 == "Chicken":  
+if q4 == "Chicken":  # <-- Adjust to your actual answer if needed
     score += 1
 
 st.divider()
@@ -67,34 +62,49 @@ q5 = st.radio(
     ["Magkapera", "Maging successful sa illegal", "Kiss mo"],
     index=None
 )
-# Change "Kiss mo" to your actual correct answer if needed:
-if q5 == "Kiss mo":  
+if q5 == "Kiss mo":  # <-- Adjust to your actual answer if needed
     score += 1
 
 st.divider()
 
-# Question 6: Games I Play (Visual Choice)
+# Question 6: Games I Play
 st.subheader("🎮 6. Games that I play the most?")
-st.caption("Pumili ka kung alin dito laro ko!")
 
 games_choice = st.radio(
-    "Select the game set:",
+    "Select the games:",
     ["Mobile Legends (ML) & CODM", "Valorant & Roblox", "Genshin Impact"],
     index=None
 )
-# Change selection to match your top answer:
-if games_choice == "Mobile Legends (ML) & CODM":  
+if games_choice == "Mobile Legends (ML) & CODM":  # <-- Adjust to your main games
     score += 1
 
 st.divider()
 
-# Question 7: Who is my crush?
+# Question 7: Who is my crush? (Her Pictures)
 st.subheader("😳 7. Sino crush ko?")
-st.write("Clue: Tingnan mo sa mirror! 😉")
-# Add a picture link or direct meme here:
-st.image("https://i.imgflip.com/26am.jpg", caption="Ikaw 'yon, 'wag ka nang mag-deny! 😂", width=300)
+st.write("Clue: Pumili ka sa mga pictures sa ibaba! 😉")
 
-crush_ans = st.text_input("Sino sa tingin mo crush ko?", placeholder="Type your name / answer...")
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.image("her1.jpg", caption="Option A", use_container_width=True)
+
+with col2:
+    st.image("her2.jpg", caption="Option B", use_container_width=True)
+
+with col3:
+    st.image("her3.jpg", caption="Option C", use_container_width=True)
+
+with col4:
+    st.image("kiss.jpg", caption="All of the above! ❤️", use_container_width=True)
+
+crush_choice = st.radio(
+    "Alin diyan ang crush ko?",
+    ["Option A", "Option B", "Option C", "All of the above! ❤️"],
+    index=None
+)
+if crush_choice is not None:
+    score += 1  # Automatic point since all pictures are her!
 
 st.divider()
 
@@ -103,12 +113,12 @@ st.subheader("🌸 Question Ko Sa'yo")
 
 st.write("**Kung mag-first move ako ng kiss, papayag ka ba?**")
 
-# Meme for her choice
-st.image("https://i.imgflip.com/1bgw.jpg", caption="Think wisely! 🙈", width=320)
+# Your uploaded meme image here!
+st.image("lord_meme.jpg", use_container_width=True)
 
 kiss_permission = st.radio(
     "Sagot mo:",
-    ["Yes, papayag ako! 😳", "Depende sa mood/setup 🙈", "No way! 😜"],
+    ["Yes", "No way! 😜"],
     index=None
 )
 
@@ -136,7 +146,7 @@ if st.button("Submit Answers ✨"):
             "Comfort Food Choice": q4,
             "What I Want Most": q5,
             "Games Selected": games_choice,
-            "Crush Answer": crush_ans,
+            "Crush Choice": crush_choice,
             "--- HER ANSWER TO YOU ---": "----------------",
             "First Move Kiss Permission": kiss_permission,
             "Quiz Score": f"{score}/{total_mc_questions}"
@@ -149,6 +159,6 @@ if st.button("Submit Answers ✨"):
                 st.success("Response recorded! Thanks for filling this out! 🎉")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
-                st.error("Submission failed. Make sure you replaced YOUR_FORMSPREE_ID with your actual Formspree link!")
+                st.error("Submission failed. Make sure you replaced YOUR_FORMSPREE_ID with your Formspree link!")
         except Exception as e:
             st.error(f"Error submitting answers: {e}")
