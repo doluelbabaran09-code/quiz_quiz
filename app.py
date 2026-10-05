@@ -154,8 +154,7 @@ if pogi_choice == "Joshua Garcia":
     st.image("nailong.jpg", caption="Nays choice", use_container_width=True)
 if pogi_choice == "Choi Hyun-wook":
     st.image("fist.jpg", caption="ah okay lng, ano bang palag ko jan?", use_container_width=True)
-if pogi_choice is not None:
-    score += 1
+
 st.divider()
 
 # --- SUBMIT BUTTON & FORMSPREE EMAIL LOGIC ---
