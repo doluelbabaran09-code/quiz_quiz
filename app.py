@@ -63,7 +63,7 @@ q5 = st.radio(
     index=None
 )
 if q5 == "Kiss mo":  # <-- Adjust to your actual answer if needed
-    st.image("kiss.jpg", caption="Ayan, malinaw na! 😘", use_container_width=True)
+    st.image("kiss.jpg", caption="Hule Boss?", use_container_width=True)
     score += 1
 
 st.divider()
