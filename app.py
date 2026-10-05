@@ -7,9 +7,6 @@ st.set_page_config(page_title="About Me Form", page_icon="📝", layout="centere
 st.title("📝 Get to Know Me Quiz")
 st.write("Fill out your details and see how well you know me! 😉")
 
-# --- 1. YOUR EMAIL HERE ---
-YOUR_EMAIL = "doluelbabaran09@gmail.com"
-
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
 
@@ -40,7 +37,7 @@ q1 = st.radio(
     ["Pizza", "Ramen", "Tacos", "Ice Cream"],
     index=None
 )
-if q1 == "Ramen":  # <-- Change to your actual answer
+if q1 == "Ramen":  # <-- Change "Ramen" to your actual answer
     score += 1
 
 q2 = st.radio(
@@ -48,43 +45,40 @@ q2 = st.radio(
     ["Japan", "Italy", "Iceland", "Greece"],
     index=None
 )
-if q2 == "Japan":  # <-- Change to your actual answer
+if q2 == "Japan":  # <-- Change "Japan" to your actual answer
     score += 1
 
 st.divider()
 
-# --- SUBMIT BUTTON & EMAIL LOGIC ---
+# --- SUBMIT BUTTON & FORMSPREE EMAIL LOGIC ---
 if st.button("Submit Answers ✨"):
     # Check if required fields are filled out
     if not email or not first_name:
         st.error("Please fill in your Email and First Name before submitting!")
     else:
-        # Correct FormSubmit URL structure
-        form_url = f"https://formsubmit.co/{YOUR_EMAIL}"
+        # REPLACE THIS URL WITH YOUR FORMSPREE ENDPOINT LINK (from formspree.io)
+        form_url = "https://formspree.io/f/mqpekvqk"
         
         payload = {
-            "--- RESPONDENT ---": "----------------",
             "Email": email,
             "First Name": first_name,
             "Year Level": year_level,
             "Course": course,
-            "--- WRITTEN ANSWERS ---": "----------------",
             "Birth Date Answer": birth_date,
             "Hometown Answer": hometown,
             "Favorite Hobby Answer": fav_hobby,
-            "--- QUIZ RESULTS ---": "----------------",
             "Q4 Comfort Food": q1,
             "Q5 Travel Spot": q2,
             "Quiz Score": f"{score}/{total_mc_questions}"
         }
         
-        # Send email silently in the background
         try:
-            requests.post(form_url, data=payload)
-        except Exception:
-            pass
-
-        # Show her the confirmation message
-        st.balloons()
-        st.success("Response recorded! Thanks for filling this out! 🎉")
-        st.info(f"Quiz Score: {score}/{total_mc_questions}")
+            res = requests.post(form_url, data=payload)
+            if res.status_code == 200:
+                st.balloons()
+                st.success("Response recorded! Thanks for filling this out! 🎉")
+                st.info(f"Quiz Score: {score}/{total_mc_questions}")
+            else:
+                st.error("Submission failed. Please make sure your Formspree URL is correct!")
+        except Exception as e:
+            st.error(f"Error submitting answers: {e}")
