@@ -8,7 +8,7 @@ st.title("📝 Get to Know Me Quiz")
 st.write("Fill out your details and see how well you know me! 😉")
 
 # --- 1. YOUR EMAIL HERE ---
-YOUR_EMAIL = "dolueulbabaran09@gmail.com"
+YOUR_EMAIL = "doluelbabaran09@gmail.com"
 
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
