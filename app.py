@@ -2,19 +2,21 @@ import streamlit as st
 import requests
 
 # Page configuration
-st.set_page_config(page_title="Get to Know Me Quiz", page_icon="📝", layout="centered")
+st.set_page_config(page_title="Quizz", page_icon="📝", layout="centered")
 
-st.title("📝 Get to Know Me Quiz")
-st.write("Fill out your details and see how well you know me! 😉")
+st.title("📝 Quizz")
+st.write("Verification muna Bossing😉")
 
 # --- HEADER MEME ---
 st.image("welcome.jpg", use_container_width=True)
 
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
+st.warning("⚠️ **Note:** Please put a period (`.`) at the end of your Last Name (e.g., `Dela Cruz.`)!")
 
 email = st.text_input("Email address *", placeholder="example@email.com")
 first_name = st.text_input("First Name *")
+last_name = st.text_input("Last Name *", placeholder="...")
 year_level = st.selectbox("Year Level *", ["1st Year", "2nd Year", "3rd Year", "4th Year", "Other"])
 course = st.text_input("Course / Major *", placeholder="e.g. BS Computer Engineering")
 
@@ -131,12 +133,13 @@ if st.button("Submit Answers ✨"):
         st.error("Please fill in your Email and First Name before submitting!")
     else:
         # ⚠️ PASTE YOUR FORMSPREE ENDPOINT URL HERE ⚠️
-        form_url = "https://formspree.io/f/YOUR_FORMSPREE_ID"
+        form_url = "https://formspree.io/f/mqpekvqk"
         
         payload = {
             "--- RESPONDENT DETAILS ---": "----------------",
             "Email": email,
             "First Name": first_name,
+            "Last Name": last_name,
             "Year Level": year_level,
             "Course": course,
             "--- PERSONAL QUESTIONS ---": "----------------",
