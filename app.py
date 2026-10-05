@@ -1,6 +1,38 @@
 import streamlit as st
 import requests
 
+def show_heart_animation():
+    st.markdown(
+        """
+        <style>
+        @keyframes floatHearts {
+            0% { transform: translateY(0vh) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+        .heart {
+            position: fixed;
+            bottom: -10vh;
+            font-size: 2rem;
+            animation: floatHearts 3s ease-in-out infinite;
+            z-index: 9999;
+        }
+        .h1 { left: 10%; animation-delay: 0s; }
+        .h2 { left: 25%; animation-delay: 0.5s; }
+        .h3 { left: 40%; animation-delay: 0.2s; }
+        .h4 { left: 60%; animation-delay: 0.8s; }
+        .h5 { left: 75%; animation-delay: 0.3s; }
+        .h6 { left: 90%; animation-delay: 0.6s; }
+        </style>
+        <div class="heart h1">💖</div>
+        <div class="heart h2">❤️</div>
+        <div class="heart h3">💕</div>
+        <div class="heart h4">💖</div>
+        <div class="heart h5">💗</div>
+        <div class="heart h6">❤️</div>
+        """,
+        unsafe_allow_html=True
+    )
+
 # Page configuration
 st.set_page_config(page_title="Quizz", page_icon="📝", layout="centered")
 
@@ -78,7 +110,7 @@ games_choice = st.radio(
     ["Mobile Legends (ML) & CODM", "Valorant & Roblox", "Genshin Impact"],
     index=None
 )
-if games_choice == "Mobile Legends (ML) & CODM":
+if games_choice == "Valorant & Roblox":
     score += 1
 
 st.divider()
@@ -236,7 +268,8 @@ if st.button("Submit Answers ✨"):
             res = requests.post(form_url, json=payload, headers=headers)
             if res.status_code == 200:
                 st.balloons()
-                st.success("Response recorded! Thanks for filling this out! 🎉")
+                show_heart_animation
+                st.success("Response recorded! Thanks You BEBE! 🎉")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
                 st.error(f"Submission failed (Status Code: {res.status_code}). Check if your Formspree form requires email activation!")
