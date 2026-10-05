@@ -1,6 +1,10 @@
 import streamlit as st
 import requests
 
+# Page configuration
+st.set_page_config(page_title="Quizz", page_icon="📝", layout="centered")
+
+# --- HEART ANIMATION FUNCTION ---
 def show_heart_animation():
     st.markdown(
         """
@@ -12,16 +16,16 @@ def show_heart_animation():
         .heart {
             position: fixed;
             bottom: -10vh;
-            font-size: 2rem;
-            animation: floatHearts 3s ease-in-out infinite;
+            font-size: 2.5rem;
+            animation: floatHearts 3.5s ease-in-out infinite;
             z-index: 9999;
         }
         .h1 { left: 10%; animation-delay: 0s; }
-        .h2 { left: 25%; animation-delay: 0.5s; }
+        .h2 { left: 25%; animation-delay: 0.6s; }
         .h3 { left: 40%; animation-delay: 0.2s; }
         .h4 { left: 60%; animation-delay: 0.8s; }
-        .h5 { left: 75%; animation-delay: 0.3s; }
-        .h6 { left: 90%; animation-delay: 0.6s; }
+        .h5 { left: 75%; animation-delay: 0.4s; }
+        .h6 { left: 90%; animation-delay: 0.7s; }
         </style>
         <div class="heart h1">💖</div>
         <div class="heart h2">❤️</div>
@@ -33,9 +37,6 @@ def show_heart_animation():
         unsafe_allow_html=True
     )
 
-# Page configuration
-st.set_page_config(page_title="Quizz", page_icon="📝", layout="centered")
-
 st.title("📝 Quizz")
 st.write("Verification muna Bossing😉")
 
@@ -44,7 +45,7 @@ st.image("welcome.jpg", use_container_width=True)
 
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
-st.warning("⚠️️ **Note:** Please put a period (`.`) at the end of your Last Name (e.g., `Dela Cruz.`)!")
+st.warning("⚠️ **Note:** Please put a period (`.`) at the end of your Last Name (e.g., `Dela Cruz.`)!")
 
 email = st.text_input("Email address *", placeholder="example@email.com")
 first_name = st.text_input("First Name *")
@@ -59,6 +60,32 @@ st.subheader("💭 Personal Questions")
 
 birth_date = st.text_input("Ano Birthday ko?", placeholder="e.g. October 15")
 hometown = st.text_input("Saan ako nakatira rn?", placeholder="City / Address")
+
+st.divider()
+
+# --- SECTION: LOVE LANGUAGES ---
+st.subheader("💌 Love Languages")
+
+st.write("**What's your love language in GIVING?** *(Check mo na lang para mas madali! 😉)*")
+col_g1, col_g2 = st.columns(2)
+with col_g1:
+    g_words = st.checkbox("Words of Affirmation 💬", key="g_words")
+    g_acts = st.checkbox("Acts of Service 🛠️", key="g_acts")
+    g_gifts = st.checkbox("Receiving Gifts 🎁", key="g_gifts")
+with col_g2:
+    g_time = st.checkbox("Quality Time ⏳", key="g_time")
+    g_touch = st.checkbox("Physical Touch 🤝", key="g_touch")
+
+st.write("---")
+st.write("**What's your love language in RECEIVING?** *(Check mo na lang para mas madali! 😉)*")
+col_r1, col_r2 = st.columns(2)
+with col_r1:
+    r_words = st.checkbox("Words of Affirmation 💬", key="r_words")
+    r_acts = st.checkbox("Acts of Service 🛠️", key="r_acts")
+    r_gifts = st.checkbox("Receiving Gifts 🎁", key="r_gifts")
+with col_r2:
+    r_time = st.checkbox("Quality Time ⏳", key="r_time")
+    r_touch = st.checkbox("Physical Touch 🤝", key="r_touch")
 
 st.divider()
 
@@ -110,32 +137,10 @@ games_choice = st.radio(
     ["Mobile Legends (ML) & CODM", "Valorant & Roblox", "Genshin Impact"],
     index=None
 )
-if games_choice == "Valorant & Roblox":
+if games_choice == "Mobile Legends (ML) & CODM":
     score += 1
 
 st.divider()
-st.subheader("💌 Love Languages")
-
-st.write("**What's your love language in GIVING?** *(😉)*")
-col_g1, col_g2 = st.columns(2)
-with col_g1:
-    g_words = st.checkbox("Words of Affirmation 💬", key="g_words")
-    g_acts = st.checkbox("Acts of Service 🛠️", key="g_acts")
-    g_gifts = st.checkbox("Receiving Gifts 🎁", key="g_gifts")
-with col_g2:
-    g_time = st.checkbox("Quality Time ⏳", key="g_time")
-    g_touch = st.checkbox("Physical Touch 🤝", key="g_touch")
-
-st.write("---")
-st.write("**What's your love language in RECEIVING?** *(😉)*")
-col_r1, col_r2 = st.columns(2)
-with col_r1:
-    r_words = st.checkbox("Words of Affirmation 💬", key="r_words")
-    r_acts = st.checkbox("Acts of Service 🛠️", key="r_acts")
-    r_gifts = st.checkbox("Receiving Gifts 🎁", key="r_gifts")
-with col_r2:
-    r_time = st.checkbox("Quality Time ⏳", key="r_time")
-    r_touch = st.checkbox("Physical Touch 🤝", key="r_touch")
 
 # Question 7: Who is my crush? (Her Pictures)
 st.subheader("Sino crush ko?")
@@ -161,7 +166,7 @@ crush_choice = st.radio(
     index=None
 )
 if crush_choice is not None:
-    score += 1  # Automatic point since all choices are her!
+    score += 1
 
 st.divider()
 
@@ -201,7 +206,7 @@ st.divider()
 # --- SECTION 4: QUESTION FOR HER ---
 st.subheader("🌸 Question Ko Sa'yo")
 
-st.write("**Kung mag-first move ako ng kiss, papalag ka ba?**")
+st.write("**Kung mag-first move ako ng kiss, papayag ka ba?**")
 
 st.image("lord_meme.jpg", use_container_width=True)
 
@@ -220,11 +225,7 @@ if st.button("Submit Answers ✨"):
     else:
         form_url = "https://formspree.io/f/mqpekvqk"
         
-        # Proper headers required by Formspree API
-        headers = {
-            "Accept": "application/json"
-        }
-
+        # Build Love Language Giving String
         giving_list = []
         if g_words: giving_list.append("Words of Affirmation")
         if g_acts: giving_list.append("Acts of Service")
@@ -233,7 +234,7 @@ if st.button("Submit Answers ✨"):
         if g_touch: giving_list.append("Physical Touch")
         giving_str = ", ".join(giving_list) if giving_list else "None selected"
 
-        # Pagsasamahin ang mga na-check para sa Receiving
+        # Build Love Language Receiving String
         receiving_list = []
         if r_words: receiving_list.append("Words of Affirmation")
         if r_acts: receiving_list.append("Acts of Service")
@@ -243,35 +244,33 @@ if st.button("Submit Answers ✨"):
         receiving_str = ", ".join(receiving_list) if receiving_list else "None selected"
 
         payload = {
-            "Email": email,
-            "First Name": first_name,
-            "Last Name": last_name,
-            "Year Level": year_level,
-            "Course": course,
-            "Birth Date Answer": birth_date,
-            "Where I Live Answer": hometown,
-            "Favorite Artist Choice": q3,
-            "Comfort Food Choice": q4,
-            "What I Want Most": q5,
-            "Games Selected": games_choice,
-            "Giving Love Language": giving_str,
-            "Receiving Love Language": receiving_str,       
-            "Crush Choice": crush_choice,
-            "Sino Pinakapogi Choice": pogi_choice,
-            "First Move Kiss Permission": kiss_permission,
-            "Quiz Score": f"{score}/{total_mc_questions}",
-            
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "year_level": year_level,
+            "course": course,
+            "birth_date": birth_date,
+            "hometown": hometown,
+            "love_language_GIVING": giving_str,
+            "love_language_RECEIVING": receiving_str,
+            "favorite_artist": q3,
+            "comfort_food": q4,
+            "what_i_want_most": q5,
+            "games_played": games_choice,
+            "crush_choice": crush_choice,
+            "pinakapogi_choice": pogi_choice,
+            "kiss_permission": kiss_permission,
+            "quiz_score": f"{score}/{total_mc_questions}"
         }
         
         try:
-            # Send payload as json with proper headers
-            res = requests.post(form_url, json=payload, headers=headers)
+            res = requests.post(form_url, data=payload)
             if res.status_code == 200:
                 st.balloons()
-                show_heart_animation
+                show_heart_animation()  # Correct function call
                 st.success("Response recorded! Thanks You BEBE! 🎉")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
-                st.error(f"Submission failed (Status Code: {res.status_code}). Check if your Formspree form requires email activation!")
+                st.error(f"Formspree Error (Status {res.status_code}): Please check if reCAPTCHA is disabled in Formspree settings!")
         except Exception as e:
             st.error(f"Error submitting answers: {e}")
