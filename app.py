@@ -137,7 +137,7 @@ games_choice = st.radio(
     ["Mobile Legends (ML) & CODM", "Valorant & Roblox", "Genshin Impact"],
     index=None
 )
-if games_choice == "Mobile Legends (ML) & CODM":
+if games_choice == "Valorant & Roblox":
     score += 1
 
 st.divider()
