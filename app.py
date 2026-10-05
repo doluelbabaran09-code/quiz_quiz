@@ -82,6 +82,28 @@ if games_choice == "Mobile Legends (ML) & CODM":
     score += 1
 
 st.divider()
+st.subheader("💌 Love Languages")
+
+st.write("**What's your love language in GIVING?** *(😉)*")
+col_g1, col_g2 = st.columns(2)
+with col_g1:
+    g_words = st.checkbox("Words of Affirmation 💬", key="g_words")
+    g_acts = st.checkbox("Acts of Service 🛠️", key="g_acts")
+    g_gifts = st.checkbox("Receiving Gifts 🎁", key="g_gifts")
+with col_g2:
+    g_time = st.checkbox("Quality Time ⏳", key="g_time")
+    g_touch = st.checkbox("Physical Touch 🤝", key="g_touch")
+
+st.write("---")
+st.write("**What's your love language in RECEIVING?** *(😉)*")
+col_r1, col_r2 = st.columns(2)
+with col_r1:
+    r_words = st.checkbox("Words of Affirmation 💬", key="r_words")
+    r_acts = st.checkbox("Acts of Service 🛠️", key="r_acts")
+    r_gifts = st.checkbox("Receiving Gifts 🎁", key="r_gifts")
+with col_r2:
+    r_time = st.checkbox("Quality Time ⏳", key="r_time")
+    r_touch = st.checkbox("Physical Touch 🤝", key="r_touch")
 
 # Question 7: Who is my crush? (Her Pictures)
 st.subheader("Sino crush ko?")
