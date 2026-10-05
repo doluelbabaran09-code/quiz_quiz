@@ -12,7 +12,7 @@ st.image("welcome.jpg", use_container_width=True)
 
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
-st.warning("⚠️ **Note:** Please put a period (`.`) at the end of your Last Name (e.g., `Dela Cruz.`)!")
+st.warning("⚠️️ **Note:** Please put a period (`.`) at the end of your Last Name (e.g., `Dela Cruz.`)!")
 
 email = st.text_input("Email address *", placeholder="example@email.com")
 first_name = st.text_input("First Name *")
@@ -34,7 +34,7 @@ st.divider()
 st.subheader("🎯 Quiz Time")
 
 score = 0
-total_mc_questions = 5
+total_mc_questions = 6
 
 # Question 3: Favorite Artist
 q3 = st.radio(
@@ -42,7 +42,7 @@ q3 = st.radio(
     ["Malcolm Todd", "Arthur Nery", "Hev Abi"],
     index=None
 )
-if q3 == "Malcolm Todd":  # <-- Adjust to your actual answer if needed
+if q3 == "Malcolm Todd":
     score += 1
 
 st.divider()
@@ -53,7 +53,7 @@ q4 = st.radio(
     ["Chicken", "Ice cream", "Fries"],
     index=None
 )
-if q4 == "Ice cream":  # <-- Adjust to your actual answer if needed
+if q4 == "Ice cream":
     score += 1
 
 st.divider()
@@ -64,7 +64,7 @@ q5 = st.radio(
     ["Magkapera", "Maging successful sa illegal", "Kiss mo"],
     index=None
 )
-if q5 == "Kiss mo":  # <-- Adjust to your actual answer if needed
+if q5 == "Kiss mo":
     st.image("kiss.jpg", caption="Hule Boss?", use_container_width=True)
     score += 1
 
@@ -78,7 +78,7 @@ games_choice = st.radio(
     ["Mobile Legends (ML) & CODM", "Valorant & Roblox", "Genshin Impact"],
     index=None
 )
-if games_choice == "Mobile Legends (ML) & CODM":  # <-- Adjust to your main games
+if games_choice == "Mobile Legends (ML) & CODM":
     score += 1
 
 st.divider()
@@ -107,27 +107,14 @@ crush_choice = st.radio(
     index=None
 )
 if crush_choice is not None:
-    score += 1  # Automatic point since all pictures are her!
+    score += 1  # Automatic point since all choices are her!
 
 st.divider()
 
-# --- SECTION 4: QUESTION FOR HER ---
-st.subheader("🌸 Question Ko Sa'yo")
-
-st.write("**Kung mag-first move ako ng kiss, papayag ka ba?**")
-
-# Your uploaded meme image here!
-st.image("lord_meme.jpg", use_container_width=True)
-
-kiss_permission = st.radio(
-    "Sagot mo:",
-    ["Yes", "No way! 😜"],
-    index=None
-)
+# Question 8: Sino Pinakapogi?
 st.subheader("🌟 Sino pinakapogi?")
 st.write("Pumili ka sa mga options sa ibaba! 😉")
 
-# Create 3 columns for your photos
 pogi_col1, pogi_col2, pogi_col3 = st.columns(3)
 
 with pogi_col1:
@@ -142,18 +129,33 @@ with pogi_col3:
     st.image("me3.jpg", use_container_width=True)
     st.markdown("<h4 style='text-align: center;'>Choi Hyun-wook</h4>", unsafe_allow_html=True)
 
-# Radio selection underneath
 pogi_choice = st.radio(
     "Sino ang pinakapogi para sa'yo?",
     ["Dwight Ramos", "Joshua Garcia", "Choi Hyun-wook"],
     index=None
 )
-if pogi_choice == "Dwight Ramos":
-     st.image("nailong.jpg", caption="Nays choice", use_container_width=True)
-if pogi_choice == "Joshua Garcia":
+
+if pogi_choice in ["Dwight Ramos", "Joshua Garcia"]:
     st.image("nailong.jpg", caption="Nays choice", use_container_width=True)
-if pogi_choice == "Choi Hyun-wook":
+    score += 1
+elif pogi_choice == "Choi Hyun-wook":
     st.image("fist.jpg", caption="ah okay lng, ano bang palag ko jan?", use_container_width=True)
+    score += 1
+
+st.divider()
+
+# --- SECTION 4: QUESTION FOR HER ---
+st.subheader("🌸 Question Ko Sa'yo")
+
+st.write("**Kung mag-first move ako ng kiss, papayag ka ba?**")
+
+st.image("lord_meme.jpg", use_container_width=True)
+
+kiss_permission = st.radio(
+    "Sagot mo:",
+    ["Yes", "No way! 😜"],
+    index=None
+)
 
 st.divider()
 
@@ -162,7 +164,6 @@ if st.button("Submit Answers ✨"):
     if not email or not first_name:
         st.error("Please fill in your Email and First Name before submitting!")
     else:
-        # ⚠️ PASTE YOUR FORMSPREE ENDPOINT URL HERE ⚠️
         form_url = "https://formspree.io/f/mqpekvqk"
         
         payload = {
@@ -181,9 +182,9 @@ if st.button("Submit Answers ✨"):
             "What I Want Most": q5,
             "Games Selected": games_choice,
             "Crush Choice": crush_choice,
+            "Sino Pinakapogi Choice": pogi_choice,
             "--- HER ANSWER TO YOU ---": "----------------",
             "First Move Kiss Permission": kiss_permission,
-            "Sino Pinakapogi Choice": pogi_choice,
             "Quiz Score": f"{score}/{total_mc_questions}"
         }
         
@@ -194,6 +195,6 @@ if st.button("Submit Answers ✨"):
                 st.success("Response recorded! Thanks for filling this out! 🎉")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
-                st.error("Submission failed. Make sure you replaced YOUR_FORMSPREE_ID with your Formspree link!")
+                st.error("Submission failed. Please check your Formspree endpoint or network connection.")
         except Exception as e:
             st.error(f"Error submitting answers: {e}")
