@@ -7,6 +7,9 @@ st.set_page_config(page_title="About Me Form", page_icon="📝", layout="centere
 st.title("📝 Get to Know Me Quiz")
 st.write("Fill out your details and see how well you know me! 😉")
 
+# Optional: Header Meme
+st.image("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWdtZzVsbzlobGJsdjl2Ym5vb2s1cDN2MjNyaWp6ZjJoM2d3N3dpdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3NjABnBOieYQE4BpkP/giphy.gif", use_column_width=True)
+
 # --- SECTION 1: RESPONDENT DETAILS ---
 st.subheader("📋 Your Details")
 
@@ -26,38 +29,45 @@ fav_hobby = st.text_input("3. What's my favorite hobby or pastime?")
 
 st.divider()
 
-# --- SECTION 3: MULTIPLE CHOICE QUIZ ---
+# --- SECTION 3: MULTIPLE CHOICE QUIZ WITH MEMES ---
 st.subheader("🎯 Multiple Choice Questions")
 
 score = 0
 total_mc_questions = 2
+
+# Meme before Question 1
+st.image("https://i.imgflip.com/1ur9b0.jpg", caption="Choose carefully...", width=300)
 
 q1 = st.radio(
     "4. What is my ultimate comfort food?",
     ["Pizza", "Ramen", "Tacos", "Ice Cream"],
     index=None
 )
-if q1 == "Ramen":  # <-- Change "Ramen" to your actual answer
+if q1 == "Ramen":  # <-- Change to your actual answer
     score += 1
+
+st.divider()
+
+# Meme before Question 2
+st.image("https://i.imgflip.com/26am.jpg", caption="Think fast!", width=300)
 
 q2 = st.radio(
     "5. If I could travel anywhere tomorrow, where would we go?",
     ["Japan", "Italy", "Iceland", "Greece"],
     index=None
 )
-if q2 == "Japan":  # <-- Change "Japan" to your actual answer
+if q2 == "Japan":  # <-- Change to your actual answer
     score += 1
 
 st.divider()
 
 # --- SUBMIT BUTTON & FORMSPREE EMAIL LOGIC ---
 if st.button("Submit Answers ✨"):
-    # Check if required fields are filled out
     if not email or not first_name:
         st.error("Please fill in your Email and First Name before submitting!")
     else:
-        # REPLACE THIS URL WITH YOUR FORMSPREE ENDPOINT LINK (from formspree.io)
-        form_url = "https://formspree.io/f/mqpekvqk"
+        # PASTE YOUR FORMSPREE ENDPOINT URL HERE
+        form_url = "https://formspree.io/f/YOUR_FORMSPREE_ID"
         
         payload = {
             "Email": email,
@@ -77,8 +87,11 @@ if st.button("Submit Answers ✨"):
             if res.status_code == 200:
                 st.balloons()
                 st.success("Response recorded! Thanks for filling this out! 🎉")
+                
+                # Victory Meme on submission
+                st.image("https://i.imgflip.com/1bgw.jpg", caption="You made it!")
                 st.info(f"Quiz Score: {score}/{total_mc_questions}")
             else:
-                st.error("Submission failed. Please make sure your Formspree URL is correct!")
+                st.error("Submission failed. Please check your Formspree endpoint!")
         except Exception as e:
             st.error(f"Error submitting answers: {e}")
