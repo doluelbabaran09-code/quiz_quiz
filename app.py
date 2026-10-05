@@ -25,8 +25,8 @@ st.divider()
 # --- SECTION 2: WRITTEN / PERSONAL QUESTIONS ---
 st.subheader("💭 Personal Questions")
 
-birth_date = st.text_input("1. Ano Birthday ko?", placeholder="e.g. October 15")
-hometown = st.text_input("2. Saan ako nakatira rn?", placeholder="City / Address")
+birth_date = st.text_input("Ano Birthday ko?", placeholder="e.g. October 15")
+hometown = st.text_input("Saan ako nakatira rn?", placeholder="City / Address")
 
 st.divider()
 
@@ -38,29 +38,29 @@ total_mc_questions = 5
 
 # Question 3: Favorite Artist
 q3 = st.radio(
-    "3. Who is my favorite artist?",
+    "Who is my favorite artist?",
     ["Malcolm Todd", "Arthur Nery", "Hev Abi"],
     index=None
 )
-if q3 == "Arthur Nery":  # <-- Adjust to your actual answer if needed
+if q3 == "Malcolm Todd":  # <-- Adjust to your actual answer if needed
     score += 1
 
 st.divider()
 
 # Question 4: Comfort Food
 q4 = st.radio(
-    "4. What is my ultimate comfort food?",
+    "What is my ultimate comfort food?",
     ["Chicken", "Ice cream", "Fries"],
     index=None
 )
-if q4 == "Chicken":  # <-- Adjust to your actual answer if needed
+if q4 == "Ice cream":  # <-- Adjust to your actual answer if needed
     score += 1
 
 st.divider()
 
 # Question 5: What do you want the most?
 q5 = st.radio(
-    "5. What do I want the most right now?",
+    "What do I want the most right now?",
     ["Magkapera", "Maging successful sa illegal", "Kiss mo"],
     index=None
 )
@@ -71,7 +71,7 @@ if q5 == "Kiss mo":  # <-- Adjust to your actual answer if needed
 st.divider()
 
 # Question 6: Games I Play
-st.subheader("🎮 6. Games that I play the most?")
+st.subheader("🎮 Games that I play the most?")
 
 games_choice = st.radio(
     "Select the games:",
@@ -84,7 +84,7 @@ if games_choice == "Mobile Legends (ML) & CODM":  # <-- Adjust to your main game
 st.divider()
 
 # Question 7: Who is my crush? (Her Pictures)
-st.subheader("😳 7. Sino crush ko?")
+st.subheader("Sino crush ko?")
 st.write("Clue: Pumili ka sa mga pictures sa ibaba! 😉")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -124,6 +124,30 @@ kiss_permission = st.radio(
     ["Yes", "No way! 😜"],
     index=None
 )
+st.subheader("🌟 Sino pinakapogi?")
+st.write("Pumili ka sa mga options sa ibaba! 😉")
+
+# Create 3 columns for your photos
+pogi_col1, pogi_col2, pogi_col3 = st.columns(3)
+
+with pogi_col1:
+    st.image("me1.jpg", use_container_width=True)
+    st.markdown("<h4 style='text-align: center;'>POGI 1</h4>", unsafe_allow_html=True)
+
+with pogi_col2:
+    st.image("me2.jpg", use_container_width=True)
+    st.markdown("<h4 style='text-align: center;'>POGI 2</h4>", unsafe_allow_html=True)
+
+with pogi_col3:
+    st.image("me3.jpg", use_container_width=True)
+    st.markdown("<h4 style='text-align: center;'>POGI 3</h4>", unsafe_allow_html=True)
+
+# Radio selection underneath
+pogi_choice = st.radio(
+    "Sino ang pinakapogi para sa'yo?",
+    ["Dwight Ramos", "Joshua Garcia", "Choi Hyun-wook"],
+    index=None
+)
 
 st.divider()
 
@@ -153,6 +177,7 @@ if st.button("Submit Answers ✨"):
             "Crush Choice": crush_choice,
             "--- HER ANSWER TO YOU ---": "----------------",
             "First Move Kiss Permission": kiss_permission,
+            "Sino Pinakapogi Choice": pogi_choice,
             "Quiz Score": f"{score}/{total_mc_questions}"
         }
         
