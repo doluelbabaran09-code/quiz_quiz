@@ -58,6 +58,27 @@ q2 = st.radio(
 )
 if q2 == "Japan":  # <-- Change to your actual answer
     score += 1
+st.subheader("6. Which of these is my dream pet?")
+
+# Store the selected answer in session state
+if "q6_answer" not in st.session_state:
+    st.session_state.q6_answer = None
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.image("https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400", caption="Golden Retriever")
+    if st.button("Choose Dog 🐶", key="pet_dog"):
+        st.session_state.q6_answer = "Golden Retriever"
+
+with col2:
+    st.image("https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400", caption="Orange Cat")
+    if st.button("Choose Cat 🐱", key="pet_cat"):
+        st.session_state.q6_answer = "Orange Cat"
+
+# Display selected choice
+if st.session_state.q6_answer:
+    st.success(f"You selected: {st.session_state.q6_answer}")
 
 st.divider()
 
