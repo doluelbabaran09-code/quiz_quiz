@@ -132,15 +132,15 @@ pogi_col1, pogi_col2, pogi_col3 = st.columns(3)
 
 with pogi_col1:
     st.image("me1.jpg", use_container_width=True)
-    st.markdown("<h4 style='text-align: center;'>POGI 1</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Dwight Ramos</h4>", unsafe_allow_html=True)
 
 with pogi_col2:
     st.image("me2.jpg", use_container_width=True)
-    st.markdown("<h4 style='text-align: center;'>POGI 2</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Joshua Garcia</h4>", unsafe_allow_html=True)
 
 with pogi_col3:
     st.image("me3.jpg", use_container_width=True)
-    st.markdown("<h4 style='text-align: center;'>POGI 3</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center;'>Choi Hyun-wook</h4>", unsafe_allow_html=True)
 
 # Radio selection underneath
 pogi_choice = st.radio(
